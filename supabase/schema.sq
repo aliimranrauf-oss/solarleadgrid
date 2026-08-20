@@ -1,0 +1,23 @@
+-- Run this in the Supabase SQL editor (Project > SQL Editor > New query)
+
+create table if not exists public.leads (
+  id uuid primary key default gen_random_uuid(),
+  full_name text not null,
+  business_name text not null,
+  phone text not null,
+  email text not null,
+  service_type text not null,
+  message text,
+  source text default 'solarleadgrid.com',
+  created_at timestamptz not null default now()
+);
+
+-- Enable Row Level Security
+alter table public.leads enable row level security;
+
+-- No public policies are created on purpose: only the server-side
+-- service role key (used in app/api/lead/route.ts) can read/write.
+-- This keeps lead data private from the browser/anon key.
+
+-- Optional: index for sorting the leads dashboard by newest first
+create index if not exists leads_created_at_idx on public.leads (created_at desc);
