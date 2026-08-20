@@ -1,24 +1,54 @@
+import Image from "next/image";
 import {
   Sun, Zap, Wrench, Battery, ClipboardCheck, SprayCan, MessageCircle,
-  Phone, MousePointerClick, Eye, ArrowRight, TrendingUp, ShieldCheck, Sparkles, Target,
+  MousePointerClick, Eye, ArrowRight, TrendingUp, ShieldCheck, Sparkles, Target,
 } from "lucide-react";
 import GridBackdrop from "@/components/GridBackdrop";
 import { Badge, StatBlock, PrimaryLink, GhostLink } from "@/components/UI";
 import LeadForm from "@/components/LeadForm";
 
 const verticals = [
-  { icon: Sun, title: "Solar Installers", desc: "Fill your calendar with homeowners ready to book a site survey." },
-  { icon: Zap, title: "Solar Sellers & Dealers", desc: "Move panel, inverter and battery stock with qualified buyer leads." },
-  { icon: Wrench, title: "Solar Technicians", desc: "Steady repair and service call volume in your coverage area." },
-  { icon: Battery, title: "Inverter Dealers", desc: "Targeted leads for inverter sales, upgrades and replacements." },
-  { icon: ClipboardCheck, title: "Solar Checkup / Inspection", desc: "Book recurring inspection and performance-audit appointments." },
-  { icon: SprayCan, title: "Solar Panel Cleaning", desc: "Fill your route with seasonal and recurring cleaning bookings." },
+  {
+    icon: Sun,
+    title: "Solar Installers",
+    desc: "Fill your calendar with homeowners ready to book a site survey.",
+    image: "/images/verticals/solar-installers.jpg",
+  },
+  {
+    icon: Zap,
+    title: "Solar Sellers & Dealers",
+    desc: "Move panel, inverter and battery stock with qualified buyer leads.",
+    image: "/images/verticals/solar-sellers.jpg",
+  },
+  {
+    icon: Wrench,
+    title: "Solar Technicians",
+    desc: "Steady repair and service call volume in your coverage area.",
+    image: "/images/verticals/solar-technicians.jpg",
+  },
+  {
+    icon: Battery,
+    title: "Inverter Dealers",
+    desc: "Targeted leads for inverter sales, upgrades and replacements.",
+    image: "/images/verticals/inverter-dealers.jpg",
+  },
+  {
+    icon: ClipboardCheck,
+    title: "Solar Checkup / Inspection",
+    desc: "Book recurring inspection and performance-audit appointments.",
+    image: "/images/verticals/solar-checkup.jpg",
+  },
+  {
+    icon: SprayCan,
+    title: "Solar Panel Cleaning",
+    desc: "Fill your route with seasonal and recurring cleaning bookings.",
+    image: "/images/verticals/solar-cleaning.jpg",
+  },
 ];
 
 const formats = [
   { icon: MousePointerClick, title: "Instant Form Leads", desc: "Meta's native lead form — zero-friction sign-up inside the app." },
   { icon: MessageCircle, title: "WhatsApp Leads", desc: "One tap from the ad straight into a WhatsApp conversation." },
-  { icon: Phone, title: "Call Leads", desc: "Ads built to drive a direct phone call to your team." },
   { icon: Target, title: "Website Traffic", desc: "Send warm visitors to your site or landing page to convert." },
   { icon: Eye, title: "Brand Awareness", desc: "Build local recognition before your sales season ramps up." },
 ];
@@ -26,7 +56,7 @@ const formats = [
 const steps = [
   { n: "01", title: "Free Strategy Call", desc: "We look at your area, your services and your current sales gap." },
   { n: "02", title: "Campaign Setup", desc: "We build your funnel — creative, targeting, forms — and launch on Meta." },
-  { n: "03", title: "Leads Start Flowing", desc: "Instant form, WhatsApp and call leads land directly with your team." },
+  { n: "03", title: "Leads Start Flowing", desc: "Instant form and WhatsApp leads land directly with your team." },
   { n: "04", title: "You Pay After Your First Order", desc: "No order, no fee. We're only paid once your business actually earns." },
 ];
 
@@ -35,6 +65,16 @@ export default function HomePage() {
     <>
       {/* HERO */}
       <section className="relative overflow-hidden bg-ink">
+        <Image
+          src="/images/hero-solar-roof.jpg"
+          alt="Solar panels installed on a residential rooftop"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/90 to-ink/50" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent" />
         <GridBackdrop />
         <div className="relative mx-auto max-w-7xl px-5 pb-20 pt-16 sm:px-8 sm:pb-28 sm:pt-24">
           <div className="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
@@ -110,15 +150,27 @@ export default function HomePage() {
             {verticals.map((v) => (
               <div
                 key={v.title}
-                className="group rounded-xl border border-ink/[0.08] bg-white p-6 transition-shadow hover:shadow-[0_16px_40px_-12px_rgba(10,20,32,0.15)]"
+                className="group overflow-hidden rounded-xl border border-ink/[0.08] bg-white transition-shadow hover:shadow-[0_16px_40px_-12px_rgba(10,20,32,0.15)]"
               >
-                <span className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-ink">
-                  <v.icon size={20} className="text-solar" />
-                </span>
-                <h3 className="mt-4 font-display text-[18px] font-semibold text-ink">{v.title}</h3>
-                <p className="mt-2 font-body text-[14px] leading-relaxed text-[#5C6A78]">
-                  {v.desc}
-                </p>
+                <div className="relative h-44 w-full overflow-hidden bg-ink/5">
+                  <Image
+                    src={v.image}
+                    alt={v.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent" />
+                  <span className="absolute bottom-3 left-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-ink/90 backdrop-blur-sm">
+                    <v.icon size={18} className="text-solar" />
+                  </span>
+                </div>
+                <div className="p-6">
+                  <h3 className="font-display text-[18px] font-semibold text-ink">{v.title}</h3>
+                  <p className="mt-2 font-body text-[14px] leading-relaxed text-[#5C6A78]">
+                    {v.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
